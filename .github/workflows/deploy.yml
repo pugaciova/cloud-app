@@ -6,6 +6,10 @@ on:
       - main
   workflow_dispatch:
 
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
+
 env:
   IMAGE_NAME: cloud-app-main
   NAMESPACE: cloud-app
@@ -88,4 +92,3 @@ jobs:
         run: |
           kubectl get pods -n $NAMESPACE
           kubectl get svc -n $NAMESPACE
-
